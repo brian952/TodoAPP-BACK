@@ -1,6 +1,9 @@
 package com.rest.webservices.restfulwebservices.todo;
 
+import com.sun.xml.bind.v2.TODO;
+
 import java.util.Date;
+import java.util.Objects;
 
 public class Todo {
 	private long id;
@@ -8,6 +11,8 @@ public class Todo {
 	private String description;
 	private Date targetDate;
 	private boolean isDone;
+
+	protected Todo(){}
 
 	public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
 		this.id = id;
@@ -55,5 +60,22 @@ public class Todo {
 
 	public void setDone(boolean done) {
 		isDone = done;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Todo todo = (Todo) o;
+		return id == todo.id &&
+				isDone == todo.isDone &&
+				username.equals(todo.username) &&
+				description.equals(todo.description) &&
+				targetDate.equals(todo.targetDate);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, username, description, targetDate, isDone);
 	}
 }
